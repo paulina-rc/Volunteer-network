@@ -1,61 +1,87 @@
-# Enlaza — Plataforma de voluntariado
+<p align="center">
+  <img src="public/assets/img/logo-enlaza.png" alt="Enlaza logo" width="120">
+</p>
 
-Plataforma web que conecta voluntarios con organizaciones sin fines de lucro.
-Proyecto TIC — Benemérito Colegio Agropecuario de San Carlos.
+<h1 align="center">Enlaza</h1>
 
-Stack: **PHP nativo (PDO) + MySQL/MariaDB + HTML/CSS/JS vanilla**, sin frameworks.
+<p align="center">
+  A web platform that connects volunteers with non-profit organizations.<br>
+  <i>Conecta. Participa. Transforma.</i>
+</p>
 
-El contexto completo del proyecto (identidad visual, convenciones de nombres,
-reglas de negocio y plan de desarrollo) está en [`CLAUDE.md`](CLAUDE.md).
+<p align="center">
+  <img src="https://img.shields.io/badge/PHP-777BB4?logo=php&logoColor=white" alt="PHP">
+  <img src="https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white" alt="MySQL">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white" alt="HTML5">
+  <img src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white" alt="CSS3">
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black" alt="JavaScript">
+</p>
 
-## Instalación local (XAMPP / Laragon)
+---
 
-1. Copiá esta carpeta dentro de `htdocs` (XAMPP) o `www` (Laragon), por ejemplo como `enlaza/`.
-2. Importá los **tres** archivos SQL **en este orden**:
+## Features
 
-   ```
+- [x] Sign up and log in (volunteer or organization)
+- [ ] Volunteer and organization profiles
+- [ ] Publish, edit and close opportunities
+- [ ] Search and filter opportunities
+- [ ] Enroll in opportunities and manage enrollments (accept / reject)
+- [ ] Recommendations based on skills, interests and location
+
+## Tech stack
+
+| Layer | Technology |
+| --- | --- |
+| Backend | Plain PHP with PDO |
+| Database | MySQL / MariaDB |
+| Frontend | HTML, CSS and vanilla JavaScript |
+| Local server | XAMPP or Laragon |
+
+## How to run it
+
+1. Copy the project into `htdocs` (XAMPP) or `www` (Laragon).
+2. Import the database:
+
+   ```bash
    mysql -u root -p < database/schema.sql
    mysql -u root -p < database/migration_001.sql
    mysql -u root -p < database/seeds.sql
    ```
 
-   - `schema.sql` — crea la base `enlaza` y las 10 tablas.
-   - `migration_001.sql` — agrega lo que las pantallas necesitan y el esquema base
-     todavía no tenía: `opportunities.requirements`, el estado `draft` en
-     `opportunities.status`, el estado `completed` en `enrollments.status`,
-     `organizations.category_id` y `organizations.founded_year`, más los índices
-     de búsqueda.
-   - `seeds.sql` — datos de demo. **Hace `TRUNCATE` de todas las tablas antes de
-     insertar**, así que no lo corrás sobre datos que quieras conservar.
+3. If your MySQL has a user or password, change `DB_USER` and `DB_PASS` in `config/config.php`.
+4. Open `http://localhost/<project-folder>/public/`.
 
-   El orden importa: `seeds.sql` inserta en columnas que crea `migration_001.sql`,
-   así que saltarse la migración hace fallar la importación.
+> [!IMPORTANT]
+> Run the SQL files in this order. `seeds.sql` uses columns that `migration_001.sql` creates.
 
-3. Revisá `config/config.php` y ajustá `DB_USER` / `DB_PASS` si tu MySQL local los
-   requiere. **No hace falta tocar `BASE_URL`**: se calcula solo a partir de la URL
-   del pedido, así que la carpeta puede llamarse como sea, incluso con espacios
-   (`Red de voluntariados`), y las rutas de CSS, JS e imágenes se arman bien.
-4. Configurá el servidor para que el **document root** apunte a la carpeta `public/`,
-   o accedé directamente a la carpeta dentro de `htdocs`, por ejemplo
-   `http://localhost/Red%20de%20voluntariados/public/`.
+> [!WARNING]
+> `seeds.sql` deletes all the data in the tables before adding the demo data. Don't run it on data you want to keep.
 
-## Cuentas de prueba
+## Test accounts
 
-Todas las cuentas del seed usan la contraseña **`enlaza123`**.
+All accounts use the password `enlaza123`.
 
-### Organizaciones
+| Role | Email |
+| --- | --- |
+| Organization | `contacto@verdenorte.org` |
+| Volunteer | `paulina.rojas@correo.com` |
 
-| Correo | Organización |
-|---|---|
+<details>
+<summary>See all accounts</summary>
+
+**Organizations**
+
+| Email | Organization |
+| --- | --- |
 | `contacto@verdenorte.org` | Fundación Verde Norte |
 | `info@aprenderjuntos.org` | Asociación Aprender Juntos |
 | `sancarlos@cruzroja.org` | Cruz Roja — sede local |
 | `cultura@zarcero.org` | Casa de la Cultura Zarcero |
 
-### Voluntarios
+**Volunteers**
 
-| Correo | Nombre |
-|---|---|
+| Email | Name |
+| --- | --- |
 | `paulina.rojas@correo.com` | Paulina Rojas |
 | `ana.rodriguez@correo.com` | Ana Rodríguez |
 | `luis.vargas@correo.com` | Luis Vargas |
@@ -65,23 +91,32 @@ Todas las cuentas del seed usan la contraseña **`enlaza123`**.
 | `diego.cespedes@correo.com` | Diego Céspedes |
 | `fabiola.quesada@correo.com` | Fabiola Quesada |
 
-El seed trae además 5 categorías, 12 habilidades, 13 oportunidades (10 activas,
-2 cerradas, 1 borrador) y 28 inscripciones en estados mezclados.
+</details>
 
-## Estructura
+## Project structure
+
+<details>
+<summary>See project structure</summary>
 
 ```
-/public              → index.php (entrada y router), /assets (css, js, img)
-/app
-  /controllers       → una clase por módulo
-  /models            → una clase por entidad, PDO
-  /views             → plantillas .php de cada pantalla + /partials
-  /helpers           → functions.php (helpers de vista), view.php
-/config              → conexión a BD, constantes globales
-/database            → schema.sql, migration_001.sql, seeds.sql
-/design-reference    → prototipos *.dc.html (referencia visual, no se ejecutan)
+public/             → index.php (router) and assets (css, js, img)
+app/
+  controllers/      → one controller per module
+  models/           → one model per table (PDO)
+  views/            → .php pages and partials
+  helpers/          → helper functions for the views
+config/             → database connection and constants
+database/           → schema, migrations and demo data
+design-reference/   → visual prototypes (they don't run)
 ```
 
+</details>
 
+## Author
 
+**Paulina Rojas** — [@paulina-rc](https://github.com/paulina-rc)
+
+## License
+
+MIT License. See [LICENSE](LICENSE) for details.
 
