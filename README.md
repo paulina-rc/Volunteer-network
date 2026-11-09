@@ -9,24 +9,7 @@
   <i>Conecta. Participa. Transforma.</i>
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/PHP-777BB4?logo=php&logoColor=white" alt="PHP">
-  <img src="https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white" alt="MySQL">
-  <img src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white" alt="HTML5">
-  <img src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white" alt="CSS3">
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black" alt="JavaScript">
-</p>
-
 ---
-
-## Features
-
-- [x] Sign up and log in (volunteer or organization)
-- [ ] Volunteer and organization profiles
-- [ ] Publish, edit and close opportunities
-- [ ] Search and filter opportunities
-- [ ] Enroll in opportunities and manage enrollments (accept / reject)
-- [ ] Recommendations based on skills, interests and location
 
 ## Tech stack
 
