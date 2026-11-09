@@ -82,52 +82,6 @@ El seed trae además 5 categorías, 12 habilidades, 13 oportunidades (10 activas
 /design-reference    → prototipos *.dc.html (referencia visual, no se ejecutan)
 ```
 
-## Rutas
 
-El router es un mapa `$routes` de `?action=` a `[Controlador, método]` en
-`public/index.php`. Rutas disponibles:
 
-| Acción | Controlador | Estado |
-|---|---|---|
-| `home` | `OpportunityController::home` | Vista real |
-| `register` | `UserController::showRegister` | Vista real |
-| `register_user` | `UserController::register` | Implementada |
-| `login` / `logout` | `UserController::login` / `logout` | Implementada |
-| `view_volunteer_profile` | `VolunteerController::viewProfile` | Vista real, datos de ejemplo |
-| `save_volunteer_profile` | `VolunteerController::saveProfile` | Pendiente (Paso 3) |
-| `recommendations` | `VolunteerController::recommendations` | Pendiente (Paso 7) |
-| `view_organization_profile` | `OrganizationController::viewProfile` | Vista real, datos de ejemplo |
-| `save_organization_profile` | `OrganizationController::saveProfile` | Pendiente (Paso 3) |
-| `search_opportunities` | `OpportunityController::search` | Vista real, datos de ejemplo |
-| `view_opportunity` | `OpportunityController::view` | Vista real, datos de ejemplo |
-| `publish_opportunity` | `OpportunityController::publish` | Vista real, formulario sin conectar |
-| `edit_opportunity` / `close_opportunity` | `OpportunityController` | Pendiente (Paso 4) |
-| `manage_enrollments` | `EnrollmentController::manage` | Vista real, datos de ejemplo |
-| `enroll` | `EnrollmentController::enroll` | Pendiente (Paso 6) |
-| `accept_enrollment` / `reject_enrollment` | `EnrollmentController` | Pendiente (Paso 6) |
 
-Una acción desconocida devuelve 404. Las acciones "pendientes" muestran la
-pantalla de `renderPending()` indicando en qué paso del plan se implementan.
-
-## Estado actual
-
-- [x] **Paso 1** — Estructura de carpetas, conexión PDO, esquema SQL, router
-- [x] **Paso 2** — Registro y login (ambos roles), sesiones, validación de formularios
-- [x] Las 9 pantallas del prototipo convertidas a vistas PHP reales (`app/views/`)
-- [x] Esquema completo: `schema.sql` + `migration_001.sql` + datos de demo en `seeds.sql`
-- [x] Helpers compartidos de vista (`app/helpers/functions.php`)
-- [ ] **Paso 3** — Perfiles de voluntario y organización (crear/editar)
-- [ ] **Paso 4** — Publicar / editar / cerrar oportunidades
-- [ ] **Paso 5** — Búsqueda y filtrado de oportunidades
-- [ ] **Paso 6** — Inscripciones + gestión (aceptar/rechazar)
-- [ ] **Paso 7** — Recomendaciones (RF10)
-- [ ] **Paso 8** — Pulido visual, validaciones de seguridad y pruebas
-
-> Las vistas ya existen y se ven completas, pero la mayoría todavía renderiza
-> arreglos de ejemplo declarados en el propio archivo. Cada una tiene un `TODO`
-> que indica el paso del plan y el modelo que la va a alimentar. Lo único que hoy
-> lee de la base de datos son las categorías, el login y el chip de usuario del
-> encabezado.
-
-Ver la documentación técnica completa (`Enlaza_Documentacion_Completa.docx`) para el
-detalle de requisitos, reglas de negocio, modelo de datos y rutas.
